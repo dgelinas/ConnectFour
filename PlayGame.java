@@ -1,0 +1,70 @@
+import java.util.Scanner;
+
+public class PlayGame {
+	public static void main(String[] args) {
+		Board board = new Board();
+		AIPlayer ai;
+		boolean playerOnesTurn = true;
+		int gameMode = 0;
+		int difficulty = 0;
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.println("Please Choose Game Mode:");
+		System.out.println("1: Against AI");
+		System.out.println("2: Two Player Game");
+		while(gameMode != 1 && gameMode != 2) gameMode = scan.nextInt();
+		
+		if(gameMode == 1) {
+			System.out.println("Please Choose A Difficulty:");
+			System.out.println("1: Easy");
+			System.out.println("2: Medium");
+			System.out.println("3: Hard");
+			while(difficulty < 1 || difficulty > 3) difficulty = scan.nextInt();
+		}
+		
+		ai = new AIPlayer(board, difficulty);
+		
+		int winner = board.findWinner();
+		while(winner == 0) {
+			int move = 0;
+			if(playerOnesTurn) {
+				board.print();
+				while(move < 1 || move > 7) {
+					System.out.println("Player One: Choose a column (1 - 7)");
+					move = scan.nextInt();
+					if(!board.isLegalMove(move - 1)) {
+						System.out.println("Column " + move + " is already full.");
+						move = 0;
+					}
+				}
+				board.makeMovePlayerOne(move - 1);
+			}
+			else if(gameMode == 2) {
+				board.print();
+				while(move < 1 || move > 7) {
+					System.out.println("Player Two: Choose a column (1 - 7)");
+					move = scan.nextInt();
+					if(!board.isLegalMove(move - 1)) {
+						System.out.println("Column " + move + " is already full.");
+						move = 0;
+					}
+				}
+				board.makeMovePlayerTwo(move - 1);
+			}
+			else {
+				int aiMove = ai.makeMove();
+				System.out.println("Your opponent chose column " + (aiMove + 1) + "\n");
+			}
+			
+			playerOnesTurn = !playerOnesTurn;
+			winner = board.findWinner();
+		}
+		
+		scan.close();
+		board.print();
+		
+		if(winner == -1) System.out.println("Tie!");
+		if(winner ==  1) System.out.println("Player One Wins!");
+		if(winner ==  2) System.out.println("Player Two Wins!");
+	}
+}
