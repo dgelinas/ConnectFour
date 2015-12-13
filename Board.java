@@ -172,6 +172,10 @@ public class Board {
 		return -1;
 	}
 	
+	public int spaceValue(int row, int col) {
+		return board[row][col];
+	}
+	
 	public void print() {
 		System.out.println("1 2 3 4 5 6 7");
 		System.out.println("-------------");
