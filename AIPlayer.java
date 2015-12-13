@@ -10,7 +10,7 @@ public class AIPlayer {
 			this.difficulty = difficulty;
 			if(difficulty == 1) depth = 2;
 			if(difficulty == 2) depth = 4;
-			if(difficulty == 2) depth = 6;
+			if(difficulty == 3) depth = 6;
 		}
 	}
 	
