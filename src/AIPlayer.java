@@ -1,16 +1,20 @@
+import java.util.Random;
+
 public class AIPlayer {
 	
 	private int difficulty;
 	private static int depth;
 	private static Board board;
+	private static double mistakeChance;
+	private static Random rn;
 	
 	public AIPlayer(Board board, int difficulty) {
 		if(difficulty != 0) {
 			this.board = board;
 			this.difficulty = difficulty;
-			if(difficulty == 1) depth = 2;
-			if(difficulty == 2) depth = 4;
-			if(difficulty == 3) depth = 6;
+			if(difficulty == 1) depth = 2; mistakeChance = 0.1;
+			if(difficulty == 2) depth = 4; mistakeChance = 0.05;
+			if(difficulty == 3) depth = 6; mistakeChance = 0.0;
 		}
 	}
 	
@@ -20,22 +24,30 @@ public class AIPlayer {
 		board.undoMove(col);
 		return v;
 	}
-	
+
 	public int makeMove() {
-		int move = 0;
+		int move = -1;
 		int max = Integer.MIN_VALUE;
-		
-		for(int j = 0 ; j < board.width() ; j++) {
-			if(board.isLegalMove(j)) {
-				int v = valueOfMove(j);
-				if(v > max) {
-					max = v;
-					move = j;
-					if(v == -1) break;
+		if(Math.random() <= mistakeChance) {
+			while(!board.isLegalMove(move))
+				move = rn.nextInt(7);
+			board.makeMovePlayerTwo(move);
+			System.out.println("Your opponent made a mistake!");
+			return move;
+		}
+		else {
+			for(int j = 0 ; j < board.width() ; j++) {
+				if(board.isLegalMove(j)) {
+					int v = valueOfMove(j);
+					if(v > max) {
+						max = v;
+						move = j;
+						if(v == -1) break;
+					}
 				}
 			}
 		}
-		
+
 		board.makeMovePlayerTwo(move);
 		return move;
 	}
