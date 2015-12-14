@@ -7,6 +7,7 @@ public class PlayGame {
 		boolean playerOnesTurn = true;
 		int gameMode = 0;
 		int difficulty = 0;
+		int cheat = 0;
 		Scanner scan = new Scanner(System.in);
 		
 		System.out.println("Please Choose Game Mode:");
@@ -20,6 +21,11 @@ public class PlayGame {
 			System.out.println("2: Medium");
 			System.out.println("3: Hard");
 			while(difficulty < 1 || difficulty > 3) difficulty = scan.nextInt();
+			
+			System.out.println("Do you want the AI to be able to cheat?");
+			System.out.println("1: Yes");
+			System.out.println("2: No");
+			while(cheat < 1 || cheat > 2) cheat = scan.nextInt();
 		}
 		
 		ai = new AIPlayer(board, difficulty);
@@ -54,6 +60,10 @@ public class PlayGame {
 			}
 			else {
 				int aiMove = ai.makeMove();
+				if(cheat == 1){
+					double ran = Math.random();
+					if(ran < .2) aiMove = ai.makeMove();
+				}
 				System.out.println("\n" + "Your opponent chose column " + (aiMove + 1));
 			}
 			
