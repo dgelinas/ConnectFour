@@ -63,9 +63,9 @@ public class AIPlayer {
 				//checks horizontal
 				if(j <= 3) {
 					for(int k = 1 ; k < 4 ; k++) {
-						if(board.spaceValue(i, j + k) == 1)
+						if(board.spaceValue(i, j + k) == 2)
 							aiValue++;
-						if(board.spaceValue(i, j + k) == 2) {
+						if(board.spaceValue(i, j + k) == 1) {
 							aiValue = 0;
 							emptySpaces = 0;
 							break;
@@ -84,9 +84,9 @@ public class AIPlayer {
 				//checks vertical
 				if(i <= 2) {
 					for(int k = 1 ; k < 4 ; k++) {
-						if(board.spaceValue(i + k, j) == 1)
+						if(board.spaceValue(i + k, j) == 2)
 							aiValue++;
-						if(board.spaceValue(i + k, j) == 2) {
+						if(board.spaceValue(i + k, j) == 1) {
 							aiValue = 0;
 							emptySpaces = 0;
 							break;
@@ -104,9 +104,9 @@ public class AIPlayer {
 				//checks downward diagonal
 				if(i <= 2 && j <= 3) {
 					for(int k = 1 ; k < 4 ; k++) {
-						if(board.spaceValue(i + k, j + k) == 1)
+						if(board.spaceValue(i + k, j + k) == 2)
 							aiValue++;
-						if(board.spaceValue(i + k, j + k) == 2) {
+						if(board.spaceValue(i + k, j + k) == 1) {
 							aiValue = 0;
 							emptySpaces = 0;
 							break;
@@ -124,9 +124,9 @@ public class AIPlayer {
 				//checks upward diagonal
 				if(i >= 3 && j <= 3) {
 					for(int k = 1 ; k < 4 ; k++) {
-						if(board.spaceValue(i - k, j + k) == 1)
+						if(board.spaceValue(i - k, j + k) == 2)
 							aiValue++;
-						if(board.spaceValue(i - k, j + k) == 2) {
+						if(board.spaceValue(i - k, j + k) == 1) {
 							aiValue = 0;
 							emptySpaces = 0;
 							break;
