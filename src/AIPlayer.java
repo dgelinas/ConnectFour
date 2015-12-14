@@ -1,7 +1,7 @@
 public class AIPlayer {
 	
 	private int difficulty;
-	private static int depth;	
+	private static int depth;
 	private static Board board;
 	
 	public AIPlayer(Board board, int difficulty) {
@@ -14,20 +14,20 @@ public class AIPlayer {
 		}
 	}
 	
-	private static double valueOfMove(int col) {
+	private static int valueOfMove(int col) {
 		board.makeMovePlayerTwo(col);
-		double v = alphabeta(depth, Integer.MIN_VALUE, Integer.MAX_VALUE, false);
+		int v = alphabeta(depth, Integer.MIN_VALUE, Integer.MAX_VALUE, false);
 		board.undoMove(col);
 		return v;
 	}
 	
 	public int makeMove() {
 		int move = 0;
-		double max = (double) Integer.MIN_VALUE;
+		int max = Integer.MIN_VALUE;
 		
 		for(int j = 0 ; j < board.width() ; j++) {
 			if(board.isLegalMove(j)) {
-				double v = valueOfMove(j);
+				int v = valueOfMove(j);
 				if(v > max) {
 					max = v;
 					move = j;
@@ -51,7 +51,6 @@ public class AIPlayer {
 	}
 	
 	private static int processBoard(Board b) {
-		//int remainingMoves = 0;
 		int aiValue = 1;
 		int score = 0;
 		int emptySpaces = 0;
@@ -61,6 +60,7 @@ public class AIPlayer {
 				if(board.spaceValue(i, j) == 0 || board.spaceValue(i, j) == 1)
 					continue;
 				
+				//checks horizontal
 				if(j <= 3) {
 					for(int k = 1 ; k < 4 ; k++) {
 						if(board.spaceValue(i, j + k) == 1)
@@ -81,6 +81,7 @@ public class AIPlayer {
 					emptySpaces = 0;
 				}
 				
+				//checks vertical
 				if(i <= 2) {
 					for(int k = 1 ; k < 4 ; k++) {
 						if(board.spaceValue(i + k, j) == 1)
@@ -100,6 +101,7 @@ public class AIPlayer {
 					emptySpaces = 0;
 				}
 				
+				//checks downward diagonal
 				if(i <= 2 && j <= 3) {
 					for(int k = 1 ; k < 4 ; k++) {
 						if(board.spaceValue(i + k, j + k) == 1)
@@ -119,6 +121,7 @@ public class AIPlayer {
 					emptySpaces = 0;
 				}
 				
+				//checks upward diagonal
 				if(i >= 3 && j <= 3) {
 					for(int k = 1 ; k < 4 ; k++) {
 						if(board.spaceValue(i - k, j + k) == 1)
@@ -156,11 +159,10 @@ public class AIPlayer {
 					score = Integer.MAX_VALUE;
 			}
 			else {
-				//other heuristics
 				score = processBoard(board);
 			}
 			
-			return score / (depth - level + 1);     //weights the score
+			return score / (depth - level + 1);     //weights the score based on how far in the future the turn occurs
 		}
 		
 		//if it is the ai's turn

@@ -26,6 +26,7 @@ public class PlayGame {
 		
 		int winner = board.findWinner();
 		while(winner == 0) {
+			
 			int move = 0;
 			if(playerOnesTurn) {
 				board.print();
@@ -53,7 +54,7 @@ public class PlayGame {
 			}
 			else {
 				int aiMove = ai.makeMove();
-				System.out.println("Your opponent chose column " + (aiMove + 1) + "\n");
+				System.out.println("\n" + "Your opponent chose column " + (aiMove + 1));
 			}
 			
 			playerOnesTurn = !playerOnesTurn;
