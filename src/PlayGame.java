@@ -61,7 +61,7 @@ public class PlayGame {
 			else {
 				int aiMove = ai.makeMove();
 				System.out.println("\n" + "Your opponent chose column " + (aiMove + 1));
-				if(cheat == 1){
+				if(cheat == 1) {
 					double ran = Math.random();
 					if(ran <= .1) { 
 						aiMove = ai.makeMove();

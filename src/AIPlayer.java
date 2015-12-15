@@ -204,14 +204,3 @@ public class AIPlayer {
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
